@@ -13,7 +13,6 @@ import com.share.mvvm_architecture.data.model.RentalSpot;
 import com.share.mvvm_architecture.databinding.ActivityMainBinding;
 import com.share.mvvm_architecture.viewmodel.MainActivityViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;
     private RentalSpotAdapter adapter;
     private ActivityMainBinding activityMainBinding;
-    List<RentalSpot> dataFromRemote = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupView() {
         activityMainBinding.recyclerview.setHasFixedSize(true);
-        viewModel.getRentalSpoteData().observe(this, rentalSpots -> {
+        viewModel.allRentalSpots.observe(this, rentalSpots -> {
             Timber.d("대여소 데이터 로딩완료: %s", rentalSpots.size());
-            dataFromRemote = rentalSpots;
             new Handler().postDelayed(() -> {
-                loadData(dataFromRemote);
+                loadData(rentalSpots);
             }, 500);
         });
     }

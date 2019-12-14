@@ -10,8 +10,6 @@ import java.util.List;
 
 public class MainActivityViewModel extends ViewModel {
     private RentalSpotRepository repository = new RentalSpotRepository();
+    public LiveData<List<RentalSpot>> allRentalSpots = repository.getRentalSpotData();
 
-    public LiveData<List<RentalSpot>> getRentalSpoteData() {
-        return repository.getRentalSpotData();
-    }
 }
